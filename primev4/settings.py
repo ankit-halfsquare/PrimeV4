@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'primev4.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,13 +75,50 @@ WSGI_APPLICATION = 'primev4.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# if os.getenv('DB_NAME', ''):
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': "mssql",
+#             # 'ENGINE': "sql_server.pyodbc",
+#             'NAME':  os.getenv('DB_NAME'),
+#             'USER':  os.getenv('DB_USER'),
+#             'PASSWORD': os.getenv('DB_PASSWORD'),
+#             'HOST':  os.getenv('DB_HOST'),   # Or an IP Address that your DB is hosted on
+#             'PORT': '1433',
+#             'OPTIONS': {
+#                 # 'driver': 'ODBC Driver 18 for SQL Server',
+#                 'driver': 'ODBC Driver 17 for SQL Server',
+                
+#             },
+#         }
+#     }
+# else:
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+            # 'ENGINE': "mssql",
+            # # 'ENGINE': "sql_server.pyodbc",
+            # 'NAME':  "prime-4-dev",
+            # 'USER':  "dbs-prime-4",
+            # 'PASSWORD': "4AM2022!",
+            # 'HOST': "amworks-database-server.database.windows.net",   # Or an IP Address that your DB is hosted on
+            # 'PORT': '1433',
+            # 'OPTIONS': {
+            #     # 'driver': 'ODBC Driver 18 for SQL Server',
+            #     'driver': 'ODBC Driver 17 for SQL Server',
+                
+            # },
+        }
     }
-}
+
 
 
 # Password validation
