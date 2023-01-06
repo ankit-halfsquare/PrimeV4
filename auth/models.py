@@ -29,9 +29,40 @@ class BuildingSelectionListItem(models.Model):
         return self.name
 
 
-class Product(models.Model):
+class Project(models.Model):
     name = models.CharField(max_length=250)
 
     def __str__(self):
         return self.name
-        
+
+
+class ProjectSelectionList(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+class ProjectSelectionListItem(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+class SkillsLevel(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+class People(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+
+
