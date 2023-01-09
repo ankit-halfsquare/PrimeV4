@@ -34,12 +34,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
@@ -73,49 +75,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'primev4.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-# if os.getenv('DB_NAME', ''):
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': "mssql",
-#             # 'ENGINE': "sql_server.pyodbc",
-#             'NAME':  os.getenv('DB_NAME'),
-#             'USER':  os.getenv('DB_USER'),
-#             'PASSWORD': os.getenv('DB_PASSWORD'),
-#             'HOST':  os.getenv('DB_HOST'),   # Or an IP Address that your DB is hosted on
-#             'PORT': '1433',
-#             'OPTIONS': {
-#                 # 'driver': 'ODBC Driver 18 for SQL Server',
-#                 'driver': 'ODBC Driver 17 for SQL Server',
-                
-#             },
-#         }
-#     }
-# else:
-#     DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
+if os.getenv('DB_NAME', ''):
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-            # 'ENGINE': "mssql",
-            # # 'ENGINE': "sql_server.pyodbc",
-            # 'NAME':  "prime-4-dev",
-            # 'USER':  "dbs-prime-4",
-            # 'PASSWORD': "4AM2022!",
-            # 'HOST': "amworks-database-server.database.windows.net",   # Or an IP Address that your DB is hosted on
-            # 'PORT': '1433',
-            # 'OPTIONS': {
-            #     # 'driver': 'ODBC Driver 18 for SQL Server',
-            #     'driver': 'ODBC Driver 17 for SQL Server',
+            'ENGINE': "mssql",
+            # 'ENGINE': "sql_server.pyodbc",
+            'NAME':  os.getenv('DB_NAME'),
+            'USER':  os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST':  os.getenv('DB_HOST'),   # Or an IP Address that your DB is hosted on
+            'PORT': '1433',
+            'OPTIONS': {
+                # 'driver': 'ODBC Driver 18 for SQL Server',
+                'driver': 'ODBC Driver 17 for SQL Server',
                 
-            # },
+            },
+        }
+    }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
         }
     }
 
@@ -161,3 +142,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
