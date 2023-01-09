@@ -14,7 +14,7 @@ test.py
 *.pdf
 *.doc
 *.docx
-*.txt
+
 __pycache__
 
 
