@@ -1,0 +1,570 @@
+from django.db import models
+
+# Create your models here.
+
+class Building(models.Model):
+    organization_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    status = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    ta1_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta2_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta3_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta4_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta5_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta6_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta7_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta8_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta9_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta10_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta11_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta12_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta13_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta14_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta15_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta16_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta17_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta18_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta19_alias = models.CharField(max_length=255, blank=True, null=True)
+    ta20_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl1_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl1_list = models.IntegerField(blank=True, null=True)
+    sl2_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl2_list = models.IntegerField(blank=True, null=True)
+    sl3_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl3_list = models.IntegerField(blank=True, null=True)
+    sl4_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl4_list = models.IntegerField(blank=True, null=True)
+    sl5_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl5_list = models.IntegerField(blank=True, null=True)
+    sl6_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl6_list = models.IntegerField(blank=True, null=True)
+    sl7_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl7_list = models.IntegerField(blank=True, null=True)
+    sl8_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl8_list = models.IntegerField(blank=True, null=True)
+    sl9_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl9_list = models.IntegerField(blank=True, null=True)
+    sl10_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl10_list = models.IntegerField(blank=True, null=True)
+    sl11_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl11_list = models.IntegerField(blank=True, null=True)
+    sl12_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl12_list = models.IntegerField(blank=True, null=True)
+    sl13_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl13_list = models.IntegerField(blank=True, null=True)
+    sl14_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl14_list = models.IntegerField(blank=True, null=True)
+    sl15_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl15_list = models.IntegerField(blank=True, null=True)
+    sl16_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl16_list = models.IntegerField(blank=True, null=True)
+    sl17_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl17_list = models.IntegerField(blank=True, null=True)
+    sl18_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl18_list = models.IntegerField(blank=True, null=True)
+    sl19_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl19_list = models.IntegerField(blank=True, null=True)
+    sl20_alias = models.CharField(max_length=255, blank=True, null=True)
+    sl20_list = models.IntegerField(blank=True, null=True)
+    zip = models.CharField(max_length=128, blank=True, null=True)
+    guid = models.CharField(max_length=36, blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'building'
+
+
+
+class BuildingItem(models.Model):
+    building_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=512, blank=True, null=True)
+    parent_building_item = models.IntegerField(blank=True, null=True)
+    people_id = models.IntegerField(blank=True, null=True)
+    code = models.CharField(max_length=788, blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    ta1 = models.CharField(max_length=768, blank=True, null=True)
+    ta2 = models.CharField(max_length=768, blank=True, null=True)
+    ta3 = models.CharField(max_length=768, blank=True, null=True)
+    ta4 = models.CharField(max_length=768, blank=True, null=True)
+    ta5 = models.CharField(max_length=768, blank=True, null=True)
+    ta6 = models.CharField(max_length=768, blank=True, null=True)
+    ta7 = models.CharField(max_length=768, blank=True, null=True)
+    ta8 = models.CharField(max_length=768, blank=True, null=True)
+    ta9 = models.CharField(max_length=768, blank=True, null=True)
+    ta10 = models.CharField(max_length=768, blank=True, null=True)
+    ta11 = models.CharField(max_length=768, blank=True, null=True)
+    ta12 = models.CharField(max_length=768, blank=True, null=True)
+    ta13 = models.CharField(max_length=768, blank=True, null=True)
+    ta14 = models.CharField(max_length=768, blank=True, null=True)
+    ta15 = models.CharField(max_length=768, blank=True, null=True)
+    ta16 = models.CharField(max_length=768, blank=True, null=True)
+    ta17 = models.CharField(max_length=768, blank=True, null=True)
+    ta18 = models.CharField(max_length=768, blank=True, null=True)
+    ta19 = models.CharField(max_length=768, blank=True, null=True)
+    ta20 = models.CharField(max_length=768, blank=True, null=True)
+    sl1 = models.IntegerField(blank=True, null=True)
+    sl2 = models.IntegerField(blank=True, null=True)
+    sl3 = models.IntegerField(blank=True, null=True)
+    sl4 = models.IntegerField(blank=True, null=True)
+    sl5 = models.IntegerField(blank=True, null=True)
+    sl6 = models.IntegerField(blank=True, null=True)
+    sl7 = models.IntegerField(blank=True, null=True)
+    sl8 = models.IntegerField(blank=True, null=True)
+    sl9 = models.IntegerField(blank=True, null=True)
+    sl10 = models.IntegerField(blank=True, null=True)
+    sl11 = models.IntegerField(blank=True, null=True)
+    sl12 = models.IntegerField(blank=True, null=True)
+    sl13 = models.IntegerField(blank=True, null=True)
+    sl14 = models.IntegerField(blank=True, null=True)
+    sl15 = models.IntegerField(blank=True, null=True)
+    sl16 = models.IntegerField(blank=True, null=True)
+    sl17 = models.IntegerField(blank=True, null=True)
+    sl18 = models.IntegerField(blank=True, null=True)
+    sl19 = models.IntegerField(blank=True, null=True)
+    sl20 = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    guid = models.CharField(max_length=36, blank=True, null=True)
+    additional_data_type_form_instance_id = models.IntegerField(blank=True, null=True)
+    additional_data_type_form_name = models.CharField(max_length=255, blank=True, null=True)
+    building_item_category_id = models.IntegerField(blank=True, null=True)
+    batch_id = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'building_item'
+
+
+class BuildingSelectionList(models.Model):
+    building_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'building_selection_list'
+
+
+
+class BuildingSelectionListItem(models.Model):
+    building_selection_list_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=125, blank=True, null=True)
+    code = models.CharField(max_length=125, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'building_selection_list_item'
+
+
+
+
+class Project(models.Model):
+    organization_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    project_administrator_id = models.IntegerField(blank=True, null=True)
+    company_id = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    status = models.CharField(max_length=50, blank=True, null=True)
+    cost = models.DecimalField(max_digits=19, decimal_places=4, blank=True, null=True)
+    revenue = models.DecimalField(max_digits=19, decimal_places=4, blank=True, null=True)
+    margin = models.DecimalField(max_digits=18, decimal_places=2, blank=True, null=True)
+    email_address = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    item_name_track = models.CharField(max_length=10, blank=True, null=True)
+    item_name_order = models.CharField(max_length=50, blank=True, null=True)
+    item_name_table = models.CharField(max_length=10, blank=True, null=True)
+    item_name_alias = models.CharField(max_length=50, blank=True, null=True)
+    ta1_alias = models.CharField(max_length=50, blank=True, null=True)
+    ta2_alias = models.CharField(max_length=50, blank=True, null=True)
+    ta3_alias = models.CharField(max_length=50, blank=True, null=True)
+    ta4_alias = models.CharField(max_length=50, blank=True, null=True)
+    ta5_alias = models.CharField(max_length=50, blank=True, null=True)
+    sl1_list = models.IntegerField(blank=True, null=True)
+    sl1_alias = models.CharField(max_length=50, blank=True, null=True)
+    sl2_list = models.IntegerField(blank=True, null=True)
+    sl2_alias = models.CharField(max_length=50, blank=True, null=True)
+    sl3_list = models.IntegerField(blank=True, null=True)
+    sl3_alias = models.CharField(max_length=50, blank=True, null=True)
+    sl4_list = models.IntegerField(blank=True, null=True)
+    sl4_alias = models.CharField(max_length=50, blank=True, null=True)
+    sl5_list = models.IntegerField(blank=True, null=True)
+    sl5_alias = models.CharField(max_length=50, blank=True, null=True)
+    customization = models.TextField(blank=True, null=True)
+    role_management = models.TextField(blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    customer_feedback = models.TextField(blank=True, null=True)
+    results = models.TextField(blank=True, null=True)
+    building_id = models.IntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'project'
+
+
+
+class ProjectSelectionList(models.Model):
+    project = models.ForeignKey(Project, models.DO_NOTHING, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'project_selection_list'
+
+
+class ProjectSelectionListItem(models.Model):
+    project_selection_list_id = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=125, blank=True, null=True)
+    code = models.CharField(max_length=125, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'project_selection_list_item'
+
+
+
+class SkillsKeywords(models.Model):
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'skills_keywords'
+
+
+class Task(models.Model):
+    project = models.ForeignKey(Project, models.DO_NOTHING, blank=True, null=True)
+    assignees = models.CharField(max_length=125, blank=True, null=True)
+    task_order_within_project = models.CharField(max_length=125, blank=True, null=True)
+    task = models.CharField(max_length=768, blank=True, null=True)
+    task_group_order_within_project = models.FloatField(blank=True, null=True)
+    task_group_id = models.IntegerField(blank=True, null=True)
+    prerequisite_status = models.CharField(max_length=50, blank=True, null=True)
+    task_parent_id = models.IntegerField(blank=True, null=True)
+    start_days_prior_to_parent_plan_stop_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    stop_days_prior_to_parent_plan_stop_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    start_days_prior_to_parent_plan_start_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    stop_days_prior_to_parent_plan_start_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    milestone_id = models.IntegerField(blank=True, null=True)
+    start_days_prior_to_milestone_plan_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    stop_days_prior_to_milestone_plan_date = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    task_planning_group_id_1 = models.IntegerField(blank=True, null=True)
+    task_planning_group_id_2 = models.IntegerField(blank=True, null=True)
+    item_id = models.IntegerField(blank=True, null=True)
+    additional_data_type_form_id = models.IntegerField(blank=True, null=True)
+    quantity = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    plan_start_date = models.DateField(blank=True, null=True)
+    plan_start_ww = models.CharField(max_length=10, blank=True, null=True)
+    plan_start_month = models.CharField(max_length=10, blank=True, null=True)
+    forecast_start_date = models.DateField(blank=True, null=True)
+    forecast_start_ww = models.CharField(max_length=10, blank=True, null=True)
+    forecast_start_month = models.CharField(max_length=10, blank=True, null=True)
+    actual_start_date = models.DateField(blank=True, null=True)
+    actual_start_ww = models.CharField(max_length=10, blank=True, null=True)
+    actual_start_month = models.CharField(max_length=10, blank=True, null=True)
+    plan_stop_date = models.DateField(blank=True, null=True)
+    plan_stop_ww = models.CharField(max_length=10, blank=True, null=True)
+    plan_stop_month = models.CharField(max_length=10, blank=True, null=True)
+    forecast_stop_date = models.DateField(blank=True, null=True)
+    forecast_stop_ww = models.CharField(max_length=10, blank=True, null=True)
+    forecast_stop_month = models.CharField(max_length=10, blank=True, null=True)
+    actual_stop_date = models.DateField(blank=True, null=True)
+    actual_stop_ww = models.CharField(max_length=10, blank=True, null=True)
+    actual_stop_month = models.CharField(max_length=10, blank=True, null=True)
+    priority_importance_definition = models.CharField(max_length=50, blank=True, null=True)
+    priority_importance = models.CharField(max_length=50, blank=True, null=True)
+    duration_unit = models.CharField(max_length=50, blank=True, null=True)
+    plan_duration = models.CharField(max_length=50, blank=True, null=True)
+    actual_duration = models.CharField(max_length=50, blank=True, null=True)
+    cost_unit = models.CharField(max_length=50, blank=True, null=True)
+    plan_cost = models.CharField(max_length=50, blank=True, null=True)
+    actual_cost = models.CharField(max_length=50, blank=True, null=True)
+    difficulty_definition = models.CharField(max_length=50, blank=True, null=True)
+    plan_difficulty = models.CharField(max_length=50, blank=True, null=True)
+    actual_difficulty = models.CharField(max_length=50, blank=True, null=True)
+    labor_unit = models.CharField(max_length=50, blank=True, null=True)
+    plan_labor_time = models.CharField(max_length=50, blank=True, null=True)
+    plan_labor_qty = models.CharField(max_length=50, blank=True, null=True)
+    plan_labor = models.CharField(max_length=50, blank=True, null=True)
+    actual_labor_time = models.CharField(max_length=50, blank=True, null=True)
+    actual_labor_qty = models.CharField(max_length=50, blank=True, null=True)
+    actual_labor = models.CharField(max_length=50, blank=True, null=True)
+    delivery_committed_to = models.CharField(max_length=50, blank=True, null=True)
+    on_time_delivery = models.CharField(max_length=50, blank=True, null=True)
+    otd_variance_details = models.CharField(max_length=50, blank=True, null=True)
+    otd_variance_category = models.CharField(max_length=50, blank=True, null=True)
+    percent_complete = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    task_status = models.CharField(max_length=50, blank=True, null=True)
+    approval_disapproval_date = models.DateField(blank=True, null=True)
+    approval_disapprover_id = models.IntegerField(blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    spare1 = models.TextField(blank=True, null=True)
+    spare2 = models.TextField(blank=True, null=True)
+    spare3 = models.TextField(blank=True, null=True)
+    code = models.CharField(max_length=788, blank=True, null=True)
+    company_id = models.IntegerField(blank=True, null=True)
+    prerequisite_id = models.IntegerField(blank=True, null=True)
+    people_id = models.IntegerField(blank=True, null=True)
+    task_parent_name = models.CharField(max_length=768, blank=True, null=True)
+    position_type_id = models.IntegerField(blank=True, null=True)
+    user_id = models.IntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    additional_data_type_form_instance_id = models.IntegerField(blank=True, null=True)
+    additional_data_type_form_name = models.CharField(max_length=255, blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    project_position_assignee_id = models.IntegerField(blank=True, null=True)
+    project_role_id = models.IntegerField(blank=True, null=True)
+    ta1 = models.CharField(max_length=255, blank=True, null=True)
+    ta2 = models.CharField(max_length=255, blank=True, null=True)
+    ta3 = models.CharField(max_length=255, blank=True, null=True)
+    ta4 = models.CharField(max_length=255, blank=True, null=True)
+    ta5 = models.CharField(max_length=255, blank=True, null=True)
+    sl1 = models.IntegerField(blank=True, null=True)
+    sl2 = models.IntegerField(blank=True, null=True)
+    sl3 = models.IntegerField(blank=True, null=True)
+    sl4 = models.IntegerField(blank=True, null=True)
+    sl5 = models.IntegerField(blank=True, null=True)
+    task_details = models.CharField(max_length=1024, blank=True, null=True)
+    days_required_to_complete = models.IntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'task'
+
+
+
+class File(models.Model):
+    table_key = models.IntegerField(blank=True, null=True)
+    table_name = models.CharField(max_length=50, blank=True, null=True)
+    url = models.CharField(max_length=512, blank=True, null=True)
+    description = models.CharField(max_length=512, blank=True, null=True)
+    project_id = models.IntegerField(blank=True, null=True)
+    file_type = models.CharField(max_length=256, blank=True, null=True)
+    file_name = models.CharField(max_length=512, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    building_id = models.IntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'file'
+
+
+
+class NonWorkingDays(models.Model):
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    project_id = models.IntegerField(blank=True, null=True)
+    value_day = models.CharField(max_length=50, blank=True, null=True)
+    value_date = models.DateField(blank=True, null=True)
+    day_or_date = models.CharField(max_length=4, blank=True, null=True)
+    value_display = models.CharField(max_length=50, blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'non_working_days'
+
+
+
+class Organization(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    organization_administrator = models.IntegerField(blank=True, null=True)
+    customer_company = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    active = models.SmallIntegerField(blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'organization'
+
+
+
+class People(models.Model):
+    name_first = models.CharField(max_length=50, blank=True, null=True)
+    name_last = models.CharField(max_length=50, blank=True, null=True)
+    resume_file_name = models.CharField(max_length=50, blank=True, null=True)
+    current_latest_position = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=10, blank=True, null=True)
+    phone = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    skills_keywords = models.CharField(max_length=255, blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.IntegerField(blank=True, null=True)
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.IntegerField(blank=True, null=True)
+    organization_id = models.IntegerField(blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    history_comments = models.TextField(blank=True, null=True)
+    current_latest_company = models.CharField(max_length=255, blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'people'
+
+
+class SupportRequest(models.Model):
+    comment = models.TextField(blank=True, null=True)  # This field type is a guess.
+    component = models.CharField(max_length=255, blank=True, null=True)
+    userid = models.CharField(max_length=255, blank=True, null=True)
+    request_datetime = models.DateField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'support_request'
+
+
+
+class View(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    app = models.CharField(max_length=255, blank=True, null=True)
+    filter_sql = models.TextField(blank=True, null=True)
+    filter_user_only = models.CharField(max_length=10, blank=True, null=True)
+    enable_obsolete = models.SmallIntegerField(blank=True, null=True)
+    enable_attach_files = models.SmallIntegerField(blank=True, null=True)
+    enable_add_children = models.SmallIntegerField(blank=True, null=True)
+    enable_add_constraint = models.SmallIntegerField(blank=True, null=True)
+    enable_clone_task = models.SmallIntegerField(blank=True, null=True)
+    obsolete = models.SmallIntegerField(blank=True, null=True)
+    enable_item_null = models.SmallIntegerField(blank=True, null=True)
+    parent_id = models.IntegerField(blank=True, null=True)
+    parent_app = models.CharField(max_length=255, blank=True, null=True)
+    view_name = models.CharField(max_length=255, blank=True, null=True)
+    category = models.CharField(max_length=20, blank=True, null=True)
+    default_sort = models.CharField(max_length=255, blank=True, null=True)
+    building_id = models.IntegerField(blank=True, null=True)
+    project_id = models.IntegerField(blank=True, null=True)
+    comments = models.CharField(max_length=1024, blank=True, null=True)
+    enable_add_link = models.SmallIntegerField(blank=True, null=True)
+    filter_conditions = models.TextField(blank=True, null=True)  # This field type is a guess.
+    enable_clone_item = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'view'
+
+
+
+class ViewField(models.Model):
+    column_name = models.CharField(max_length=255, blank=True, null=True)
+    alias = models.CharField(max_length=255, blank=True, null=True)
+    column_width = models.IntegerField(blank=True, null=True)
+    column_order = models.IntegerField(blank=True, null=True)
+    visible = models.SmallIntegerField(blank=True, null=True)
+    cssformat = models.CharField(db_column='cssFormat', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    column_system_name = models.CharField(max_length=255, blank=True, null=True)
+    column_view_name = models.CharField(max_length=255, blank=True, null=True)
+    column_sort_method = models.CharField(max_length=255, blank=True, null=True)
+    field_type = models.CharField(max_length=255, blank=True, null=True)
+    field_selection_list = models.IntegerField(blank=True, null=True)
+    view = models.ForeignKey(View, models.DO_NOTHING, blank=True, null=True)
+    form_visible = models.SmallIntegerField(blank=True, null=True)
+    form_enabled = models.SmallIntegerField(blank=True, null=True)
+    app = models.CharField(max_length=255, blank=True, null=True)
+    hidden = models.SmallIntegerField(blank=True, null=True)
+    filter_visible = models.SmallIntegerField(blank=True, null=True)
+    view_editor_enabled = models.SmallIntegerField(blank=True, null=True)
+    excel_filter = models.SmallIntegerField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'view_field'
+
+
+
+class ColorMaster(models.Model):
+    color_id = models.CharField(max_length=255, blank=True, null=True)
+    background_color_hex = models.CharField(max_length=255, blank=True, null=True)
+    background_color = models.CharField(max_length=255, blank=True, null=True)
+    text_color_hex = models.CharField(max_length=255, blank=True, null=True)
+    text_color = models.CharField(max_length=255, blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'color_master'
+
+
+class MenuSystem(models.Model):
+    html = models.CharField(max_length=255, blank=True, null=True)
+    icon = models.CharField(max_length=255, blank=True, null=True)
+    action = models.CharField(max_length=255, blank=True, null=True)
+    parent_id = models.IntegerField(blank=True, null=True)
+    security_groups = models.CharField(max_length=1024, blank=True, null=True)
+    value = models.CharField(max_length=255, blank=True, null=True)
+    js_function = models.CharField(max_length=512, blank=True, null=True)
+    sequence = models.IntegerField(blank=True, null=True)
+    opened = models.BooleanField(blank=True, null=True)
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'menu_system'
+
+
+
+
+
+
+
