@@ -56,7 +56,9 @@
          {% endif %}
        </span>
       </div>
-
+      <div style="margin-left: 0px">
+        {% include "navbar-sidebar.html" %}
+    </div>
   <div id="content">
     {% block content %}
     {% endblock %}
@@ -76,7 +78,6 @@
     <script src={% static "plugins/sparkline/jquery.sparkline.min.js" %}></script>
 </body>
 </html>
-
 
 
 

@@ -22,15 +22,108 @@
                leftSplit: 4,
                pager:"pager",
                columns: [
-               { id:"name",    header:"Name",              width:100},
-               { id:"code",   header:"Code",    width:200},
-               { id:"city",    header:"City",      width:80},
-               { id:"state",   header:"State",         width:100},
-               { id:"country",   header:"Country",         width:100},
-
-               ],
+               {
+                 header: "Action",
+                 template:
+                   "<div class='link'> <a class='viewbtn' type='button'>View</a> </div>",
+                 width: 50,
+               },              
+               {
+                 id: "name",
+                 header: {
+                   text: "Name",
+                   autoheight: true,
+                   content: "excelFilter",
+                   mode: "text",
+                 },
+                 sort: "string",
+                 width: 113,
+               },
+               {
+                 id: "code",
+                 header: {
+                   text: "Code",
+                   autoheight: true,
+                   content: "excelFilter",
+                   css: "multiline",
+                   mode: "text",
+                 },
+                 sort: "string",
+                 width: 113,
+               },
+               
+               {
+                 id: "city",
+                 header: {
+                   text: "City",
+                   autoheight: true,
+                   content: "excelFilter",
+                   css: "multiline",
+                   mode: "text",
+                 },
+                 sort: "string",
+                 width: 100,
+               },
+               {
+                 id: "state",
+                 header: {
+                   text: "State",
+                   autoheight: true,
+                   content: "excelFilter",
+                   css: "multiline",
+                   mode: "text",
+                 },
+                 sort: "string",
+                 width: 100,
+               },
+               {
+                id: "country",
+                header: {
+                  text: "Country",
+                  autoheight: true,
+                  content: "excelFilter",
+                  css: "multiline",
+                  mode: "text",
+                },
+                sort: "string",
+                width: 100,
+              },
+              
+              {
+                id: "comment",
+                header: {
+                  text: "Comment",
+                  autoheight: true,
+                  content: "excelFilter",
+                  css: "multiline",
+                  mode: "text",
+                },
+                sort: "string",
+                width: 100,
+              },
+              {
+                id: "project",
+                header: {
+                  text: "Project",
+                  autoheight: true,
+                  content: "excelFilter",
+                  css: "multiline",
+                  mode: "text",
+                },
+                sort: "string",
+                width: 100,
+              },
+             ]
+             ,
                data: [
-        { id:1, name:"User Profile", code:1994, city:678790, state:1,country:"India"},
+        { id:1, name:"User Profile", code:"UserProfile29", city:"Manchester", state:"Landon",country:"England",comment:"nice",project:"Project"},
+        { id:2, name:"User Profile", code:"UserProfile30", city:"Surat", state:"Gujarat",country:"India",comment:"good",project:"Project"},
+        { id:3, name:"User Profile", code:"UserProfile31", city:"dfd", state:"Landon",country:"USA",comment:"Very nice",project:"Project"},
+        { id:4, name:"User Profile", code:"UserProfile32", city:"dfd", state:"Landon",country:"Africa",comment:"good",project:"Project"},
+        { id:5, name:"User Profile", code:"UserProfile33", city:"yhjh", state:"Landon",country:"Ireland",comment:"nice",project:"Project"},
+        { id:6, name:"User Profile", code:"UserProfile34", city:"ere", state:"Landon",country:"Dubai",comment:"Very good",project:"Project"},
+        { id:7, name:"User Profile", code:"UserProfile35", city:"ere", state:"Landon",country:"England",comment:"nice",project:"Project"},
+
     ]
              },
                {
@@ -45,9 +138,7 @@
     })
 </script>
 <div>
-    <div style="margin-left: -100px">
-        {% include "navbar-sidebar.html" %}
-    </div>
+    
     <div id="webix_datatable" style="margin-left: 100px;
     margin-top: -30px !important;"    ></div>
     </div>
