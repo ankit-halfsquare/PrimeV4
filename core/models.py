@@ -2,19 +2,116 @@ from django.db import models
 
 # Create your models here.
 
+
+class User(models.Model):
+    name_first = models.CharField(max_length=50, blank=True, null=True)
+    name_last = models.CharField(max_length=50, blank=True, null=True)
+    userid = models.CharField(max_length=50, blank=True, null=True)
+    company_id = models.IntegerField(blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    universal_project_controller = models.CharField(max_length=4, blank=True, null=True)
+    last_login = models.DateTimeField(blank=True, null=True)
+    active = models.SmallIntegerField(blank=True, null=True)
+    email_verification = models.SmallIntegerField(blank=True, null=True)
+    email_verification_code = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    # create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='create_by_user')
+    update_date = models.DateTimeField(blank=True, null=True)
+    # update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='update_by_user')
+    organization = models.ForeignKey('Organization',models.DO_NOTHING,blank=True, null=True)
+    role_primary = models.CharField(max_length=50, blank=True, null=True)
+    resume_file_name = models.CharField(max_length=50, blank=True, null=True)
+    current_latest_company = models.CharField(max_length=50, blank=True, null=True)
+    current_latest_position = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=50, blank=True, null=True)
+    skills_keywords = models.CharField(max_length=50, blank=True, null=True)
+    obsolete = models.BooleanField(default=False)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    login_disabled = models.SmallIntegerField(blank=True, null=True)
+    project_membership = models.CharField(max_length=255, blank=True, null=True)
+    project_membership_json = models.TextField(blank=True, null=True)
+    ux_memory = models.TextField(blank=True, null=True)
+    task_datatable_view_id = models.IntegerField(blank=True, null=True)
+    current_project_id = models.IntegerField(blank=True, null=True)
+    history_comments = models.TextField(blank=True, null=True)
+    pref_datatable_width = models.IntegerField(blank=True, null=True)
+    pref_datatable_height = models.IntegerField(blank=True, null=True)
+    app_item_project_id = models.IntegerField(blank=True, null=True)
+    app_item_view_id = models.IntegerField(blank=True, null=True)
+    app_building_view_id = models.IntegerField(blank=True, null=True)
+    app_building_item_selected_building_id = models.IntegerField(blank=True, null=True)
+    app_building_item_selected_view_id = models.IntegerField(blank=True, null=True)
+    app_task_selected_project_id = models.IntegerField(blank=True, null=True)
+    app_task_selected_view_id = models.IntegerField(blank=True, null=True)
+
+
+    def __str__(self):
+        return f"{self.name_first} {self.name_last}"
+ 
+
+
+
+class Organization(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    organization_administrator = models.IntegerField(blank=True, null=True)
+    customer_company = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='organization_created_by')
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='organization_updated_by')
+    active = models.SmallIntegerField(blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+
+class People(models.Model):
+    name_first = models.CharField(max_length=50, blank=True, null=True)
+    name_last = models.CharField(max_length=50, blank=True, null=True)
+    resume_file_name = models.CharField(max_length=50, blank=True, null=True)
+    current_latest_position = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=10, blank=True, null=True)
+    phone = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    skills_keywords = models.CharField(max_length=255, blank=True, null=True)
+    obsolete = models.BooleanField(default=False)
+    create_date = models.DateTimeField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='people_created_by')
+    update_date = models.DateTimeField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='people_updated_by')
+   
+    organization = models.ForeignKey(Organization,models.DO_NOTHING,blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
+    history_comments = models.TextField(blank=True, null=True)
+    current_latest_company = models.CharField(max_length=255, blank=True, null=True)
+
+  
+
+
 class Building(models.Model):
-    organization_id = models.IntegerField(blank=True, null=True)
+    organization = models.ForeignKey(Organization,models.DO_NOTHING,blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     code = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)
     status = models.CharField(max_length=50, blank=True, null=True)
-    create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_created_by')
+    update_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_updated_by')
+    obsolete = models.BooleanField(default=False)
     comments = models.TextField(blank=True, null=True)
     ta1_alias = models.CharField(max_length=255, blank=True, null=True)
     ta2_alias = models.CharField(max_length=255, blank=True, null=True)
@@ -79,17 +176,15 @@ class Building(models.Model):
     zip = models.CharField(max_length=128, blank=True, null=True)
     guid = models.CharField(max_length=36, blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'building'
+
 
 
 
 class BuildingItem(models.Model):
-    building_id = models.IntegerField(blank=True, null=True)
+    building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
     name = models.CharField(max_length=512, blank=True, null=True)
     parent_building_item = models.IntegerField(blank=True, null=True)
-    people_id = models.IntegerField(blank=True, null=True)
+    people = models.ForeignKey(People,on_delete=models.DO_NOTHING,  blank=True, null=True)
     code = models.CharField(max_length=788, blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
     ta1 = models.CharField(max_length=768, blank=True, null=True)
@@ -134,55 +229,54 @@ class BuildingItem(models.Model):
     sl20 = models.IntegerField(blank=True, null=True)
     obsolete = models.SmallIntegerField(blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_item_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_item_updated_by')
     guid = models.CharField(max_length=36, blank=True, null=True)
     additional_data_type_form_instance_id = models.IntegerField(blank=True, null=True)
     additional_data_type_form_name = models.CharField(max_length=255, blank=True, null=True)
     building_item_category_id = models.IntegerField(blank=True, null=True)
     batch_id = models.CharField(max_length=255, blank=True, null=True)
 
+
     class Meta:
-        managed = False
-        db_table = 'building_item'
+        managed = True
+        db_table = 'core_building_item'
+
+    
 
 
 class BuildingSelectionList(models.Model):
-    building_id = models.IntegerField(blank=True, null=True)
+    building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     code = models.CharField(max_length=50, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_selection_list_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_selection_list_updated_by')
+    obsolete = models.BooleanField(default=False)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'building_selection_list'
+   
 
 
 
 class BuildingSelectionListItem(models.Model):
-    building_selection_list_id = models.IntegerField(blank=True, null=True)
+    building_selection_list = models.ForeignKey(BuildingSelectionList,models.DO_NOTHING,blank=True, null=True)
     name = models.CharField(max_length=125, blank=True, null=True)
     code = models.CharField(max_length=125, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_selection_list_item_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='building_selection_list_item_updated_by')
+    obsolete = models.BooleanField(default=False)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'building_selection_list_item'
+    
 
 
 
 
 class Project(models.Model):
-    organization_id = models.IntegerField(blank=True, null=True)
+    organization = models.ForeignKey(Organization,models.DO_NOTHING,blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     code = models.CharField(max_length=50, blank=True, null=True)
     project_administrator_id = models.IntegerField(blank=True, null=True)
@@ -196,10 +290,10 @@ class Project(models.Model):
     margin = models.DecimalField(max_digits=18, decimal_places=2, blank=True, null=True)
     email_address = models.CharField(max_length=50, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_updated_by')
+    obsolete = models.BooleanField(default=False)
     item_name_track = models.CharField(max_length=10, blank=True, null=True)
     item_name_order = models.CharField(max_length=50, blank=True, null=True)
     item_name_table = models.CharField(max_length=10, blank=True, null=True)
@@ -224,11 +318,9 @@ class Project(models.Model):
     comments = models.TextField(blank=True, null=True)
     customer_feedback = models.TextField(blank=True, null=True)
     results = models.TextField(blank=True, null=True)
-    building_id = models.IntegerField(blank=True, null=True)
+    building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'project'
+
 
 
 
@@ -237,43 +329,35 @@ class ProjectSelectionList(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     code = models.CharField(max_length=50, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_selection_list_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_selection_list_updated_by')
+    obsolete = models.BooleanField(default=False)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'project_selection_list'
+  
 
 
 class ProjectSelectionListItem(models.Model):
-    project_selection_list_id = models.IntegerField(blank=True, null=True)
+    project_selection_list = models.ForeignKey(ProjectSelectionList, models.DO_NOTHING, blank=True, null=True)
     name = models.CharField(max_length=125, blank=True, null=True)
     code = models.CharField(max_length=125, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_selection_list_item_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
-
-    # class Meta:
-    #     managed = False
-    #     db_table = 'project_selection_list_item'
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_selection_list_item_updated_by')
+    obsolete = models.BooleanField(default=False)
 
 
 
 class SkillsKeywords(models.Model):
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='skills_keywords_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='skills_keywords_updated_by')
     name = models.CharField(max_length=50, blank=True, null=True)
     code = models.CharField(max_length=50, blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'skills_keywords'
+
 
 
 class Task(models.Model):
@@ -353,12 +437,12 @@ class Task(models.Model):
     position_type_id = models.IntegerField(blank=True, null=True)
     user_id = models.IntegerField(blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='task_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='task_updated_by')
     additional_data_type_form_instance_id = models.IntegerField(blank=True, null=True)
     additional_data_type_form_name = models.CharField(max_length=255, blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    obsolete = models.BooleanField(default=False)
     project_position_assignee_id = models.IntegerField(blank=True, null=True)
     project_role_id = models.IntegerField(blank=True, null=True)
     ta1 = models.CharField(max_length=255, blank=True, null=True)
@@ -374,10 +458,7 @@ class Task(models.Model):
     task_details = models.CharField(max_length=1024, blank=True, null=True)
     days_required_to_complete = models.IntegerField(blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'task'
-
+    
 
 
 class File(models.Model):
@@ -389,81 +470,32 @@ class File(models.Model):
     file_type = models.CharField(max_length=256, blank=True, null=True)
     file_name = models.CharField(max_length=512, blank=True, null=True)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='file_created_by')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
-    building_id = models.IntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='file_updated_by')
+    obsolete = models.BooleanField(default=False)
+    building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'file'
+  
 
 
 
 class NonWorkingDays(models.Model):
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    obsolete = models.BooleanField(default=False)
     create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
+    create_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='non_working_days_created_by_user')
     update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    project_id = models.IntegerField(blank=True, null=True)
+    update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='non_working_days_updated_by_user')
+    # project_id = models.IntegerField(blank=True, null=True)
+    project = models.ForeignKey(Project, models.DO_NOTHING, blank=True, null=True)
     value_day = models.CharField(max_length=50, blank=True, null=True)
     value_date = models.DateField(blank=True, null=True)
     day_or_date = models.CharField(max_length=4, blank=True, null=True)
     value_display = models.CharField(max_length=50, blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'non_working_days'
+    
 
 
-
-class Organization(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
-    code = models.CharField(max_length=50, blank=True, null=True)
-    organization_administrator = models.IntegerField(blank=True, null=True)
-    customer_company = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    state = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    active = models.SmallIntegerField(blank=True, null=True)
-    comments = models.TextField(blank=True, null=True)
-
-    # class Meta:
-    #     managed = False
-    #     db_table = 'organization'
-
-
-
-class People(models.Model):
-    name_first = models.CharField(max_length=50, blank=True, null=True)
-    name_last = models.CharField(max_length=50, blank=True, null=True)
-    resume_file_name = models.CharField(max_length=50, blank=True, null=True)
-    current_latest_position = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    state = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField(max_length=50, blank=True, null=True)
-    email = models.CharField(max_length=50, blank=True, null=True)
-    skills_keywords = models.CharField(max_length=255, blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
-    create_date = models.DateTimeField(blank=True, null=True)
-    create_user = models.IntegerField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
-    update_user = models.IntegerField(blank=True, null=True)
-    organization_id = models.IntegerField(blank=True, null=True)
-    code = models.CharField(max_length=50, blank=True, null=True)
-    history_comments = models.TextField(blank=True, null=True)
-    current_latest_company = models.CharField(max_length=255, blank=True, null=True)
-
-    # class Meta:
-    #     managed = False
-    #     db_table = 'people'
 
 
 class SupportRequest(models.Model):
@@ -472,9 +504,7 @@ class SupportRequest(models.Model):
     userid = models.CharField(max_length=255, blank=True, null=True)
     request_datetime = models.DateField(blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'support_request'
+  
 
 
 
@@ -483,29 +513,26 @@ class View(models.Model):
     app = models.CharField(max_length=255, blank=True, null=True)
     filter_sql = models.TextField(blank=True, null=True)
     filter_user_only = models.CharField(max_length=10, blank=True, null=True)
-    enable_obsolete = models.SmallIntegerField(blank=True, null=True)
+    enable_obsolete = models.BooleanField(default=False)
     enable_attach_files = models.SmallIntegerField(blank=True, null=True)
     enable_add_children = models.SmallIntegerField(blank=True, null=True)
     enable_add_constraint = models.SmallIntegerField(blank=True, null=True)
     enable_clone_task = models.SmallIntegerField(blank=True, null=True)
-    obsolete = models.SmallIntegerField(blank=True, null=True)
+    obsolete = models.BooleanField(default=False)
     enable_item_null = models.SmallIntegerField(blank=True, null=True)
     parent_id = models.IntegerField(blank=True, null=True)
     parent_app = models.CharField(max_length=255, blank=True, null=True)
     view_name = models.CharField(max_length=255, blank=True, null=True)
     category = models.CharField(max_length=20, blank=True, null=True)
     default_sort = models.CharField(max_length=255, blank=True, null=True)
-    building_id = models.IntegerField(blank=True, null=True)
+    building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
     project_id = models.IntegerField(blank=True, null=True)
     comments = models.CharField(max_length=1024, blank=True, null=True)
     enable_add_link = models.SmallIntegerField(blank=True, null=True)
     filter_conditions = models.TextField(blank=True, null=True)  # This field type is a guess.
     enable_clone_item = models.SmallIntegerField(blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'view'
-
+    
 
 
 class ViewField(models.Model):
@@ -529,11 +556,7 @@ class ViewField(models.Model):
     view_editor_enabled = models.SmallIntegerField(blank=True, null=True)
     excel_filter = models.SmallIntegerField(blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'view_field'
-
-
+    
 
 class ColorMaster(models.Model):
     color_id = models.CharField(max_length=255, blank=True, null=True)
@@ -542,9 +565,6 @@ class ColorMaster(models.Model):
     text_color_hex = models.CharField(max_length=255, blank=True, null=True)
     text_color = models.CharField(max_length=255, blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'color_master'
 
 
 class MenuSystem(models.Model):
@@ -558,10 +578,7 @@ class MenuSystem(models.Model):
     sequence = models.IntegerField(blank=True, null=True)
     opened = models.BooleanField(blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'menu_system'
-
+   
 
 
 

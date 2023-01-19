@@ -1,9 +1,55 @@
-{% extends "base.html" %}
+{% extends "base.html"%} 
+{% load static %}
 
 {% block title %} Dashboard {% endblock %}
 
 
 {% block content %}
-    <h1>Coming Soon</h1>
+    
        
+<script type="text/javascript" charset="utf-8">
+    webix.ready(function() {
+        webix.ui({
+        
+            responsive: "webix_datatable",
+            container: "webix_datatable",
+            rows: [
+             {
+               select: "row",
+               id:"table",
+               view: "datatable", 
+               minHeight: 800,
+               leftSplit: 4,
+               pager:"pager",
+               columns: [
+               { id:"name",    header:"Name",              width:100},
+               { id:"code",   header:"Code",    width:200},
+               { id:"city",    header:"City",      width:80},
+               { id:"state",   header:"State",         width:100},
+               { id:"country",   header:"Country",         width:100},
+
+               ],
+               data: [
+        { id:1, name:"User Profile", code:1994, city:678790, state:1,country:"India"},
+    ]
+             },
+               {
+                 id:"pager",
+                 view:"pager",
+                 template:"{common.first()} {common.prev()} {common.pages()} {common.next()} {common.last()}",
+                 size:20,
+                 group:5
+               },
+            ]
+           }); 
+    })
+</script>
+<div>
+    <div style="margin-left: -100px">
+        {% include "navbar-sidebar.html" %}
+    </div>
+    <div id="webix_datatable" style="margin-left: 100px;
+    margin-top: -30px !important;"    ></div>
+    </div>
+</div>
 {% endblock %}

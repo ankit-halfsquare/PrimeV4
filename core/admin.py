@@ -6,8 +6,9 @@ from django.utils.html import format_html
 
 
 class BuildingTableAdmin(admin.ModelAdmin):
-    list_display = ('organization_id','name','code','city','state','country','zip','status')
-    list_filter = ('organization_id','city','status')
+    list_display = ('name','code','city','state','country','zip','status')
+    list_filter = ('city','status')
+    readonly_fields=('create_date','update_date',)
     # readonly_fields=('fileUploadUser','candidateFileName','candidateFileNamePDF','date_added','fileUploadDate')
     # list_display_links = ('first_name','last_name','skill_keywords_found',)
 
@@ -17,62 +18,73 @@ class BuildingTableAdmin(admin.ModelAdmin):
 
 
 class BuildingItemTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('building_id','name','parent_building_item','people_id','code','building_item_category_id',)
     list_filter = ('code','building_id','parent_building_item','building_item_category_id')
 
 
 class BuildingSelectionListTableAdmin(admin.ModelAdmin):
-    list_display = ('building_id','name','code','obsolete')
-    list_filter = ('building_id','name','code','obsolete')
+    readonly_fields=('create_date','update_date')
+    list_display = ('building_id','name','code',)
+    list_filter = ('building_id','name','code',)
 
 
 class BuildingSelectionListItemTableAdmin(admin.ModelAdmin):
-    list_display = ('building_selection_list_id','name','code','obsolete')
-    list_filter = ('building_selection_list_id','name','code','obsolete')
+    readonly_fields=('create_date','update_date')
+    list_display = ('building_selection_list_id','name','code',)
+    list_filter = ('building_selection_list_id','name','code',)
 
 
 
 
 class ProjectTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('organization_id','name','code','project_administrator_id','company_id','city','state','country')
     list_filter = ('organization_id','name','code','project_administrator_id','company_id','city','state','country')
 
 
 class ProjectSelectionListTableAdmin(admin.ModelAdmin):
-    list_display = ('project','name','code','obsolete',)
-    list_filter = ('project','name','code','obsolete',)
+    readonly_fields=('create_date','update_date')
+    list_display = ('project','name','code',)
+    list_filter = ('project','name','code',)
 
 
 class ProjectSelectionListItemTableAdmin(admin.ModelAdmin):
-    list_display = ('project_selection_list_id','name','code','obsolete')
+    readonly_fields=('create_date','update_date')
+    list_display = ('project_selection_list_id','name','code',)
     list_filter = ()
 
 
 
 class SkillsKeywordsTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('name','code',)
     list_filter = ('name','code',)
 
 
 class TaskTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('project','assignees','task')
     list_filter = ('project','assignees','task')
 
 
 
 class FileTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('table_key','table_name','file_type','file_name')
     list_filter = ('table_key','table_name','file_type','file_name')
 
 
 
 class NonWorkingDaysTableAdmin(admin.ModelAdmin):
-    list_display = ('obsolete','project_id','value_day','value_date','day_or_date','value_display')
-    list_filter = ('obsolete','project_id','value_day','value_date','day_or_date','value_display')
+    readonly_fields=('create_date','update_date')
+    list_display = ('project_id','value_day','value_date','day_or_date','value_display')
+    list_filter = ('project_id','value_day','value_date','day_or_date','value_display')
 
 
 
 class OrganizationTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('name','code','organization_administrator','customer_company','active')
     list_filter = ('name','code','organization_administrator','customer_company','active')
 
@@ -80,6 +92,7 @@ class OrganizationTableAdmin(admin.ModelAdmin):
 
 
 class PeopleTableAdmin(admin.ModelAdmin):
+    readonly_fields=('create_date','update_date')
     list_display = ('name_first','name_last','resume_file_name','current_latest_position','phone','email')
     list_filter = ('current_latest_position','code')
 
