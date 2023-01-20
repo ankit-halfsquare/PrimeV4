@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
 {% block content %}
+
+
+  <div style="margin:20px 100px" >
   <h1>Log-in</h1>
   {% if form.errors %}
     <p>
@@ -13,7 +16,7 @@
     If you don't have an account <a href="{% url "register" %}">register here </a>
     </p>
   {% endif %}
-  <div class="login-form">
+  <div class="login-form"  >
     <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -27,4 +30,5 @@
     </p>
     
   </div>
+</div>
 {% endblock %}
