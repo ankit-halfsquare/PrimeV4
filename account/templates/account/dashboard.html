@@ -18,7 +18,7 @@
                select: "row",
                id:"table",
                view: "datatable", 
-               minHeight: 800,
+               minHeight: window.innerHeight-150,
                leftSplit: 4,
                pager:"pager",
                columns: [
@@ -139,8 +139,7 @@
 </script>
 <div>
     
-    <div id="webix_datatable" style="margin-left: 100px;
-    margin-top: -30px !important;"    ></div>
+    <div id="webix_datatable" style="margin:20px;margin-left: 220px" ></div>
     </div>
 </div>
 {% endblock %}

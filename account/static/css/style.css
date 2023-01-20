@@ -1128,8 +1128,8 @@ a.mytooltip { font-weight: 500; color: #009efb }
 .plugin-details { display: none }
 .plugin-details-active { display: block }
 .form-control-line .form-control { -webkit-box-shadow: none; box-shadow: none }
-.left-sidebar { position: fixed; width: 200px; height: 100%; z-index: 20; padding-top: 30px; background: #12c064; }
-.fix-sidebar .left-sidebar { position: fixed !important; }
+.left-sidebar { position: absolute; width: 200px; top:30px;bottom: 0;left:0;z-index: 20; padding-top: 30px; background: #12c064; }
+/* .fix-sidebar .left-sidebar { position: fixed important; } */
 .user-profile { position: relative; background-size: cover }
 .user-profile .profile-img { width: 50px; margin-left: 30px; padding: 35px 0; border-radius: 100% }
 .user-profile .profile-img:before { -webkit-animation: 2.5s blow 0s linear infinite; animation: 2.5s blow 0s linear infinite; position: absolute; content: ''; width: 50px; height: 50px; top: 35px; margin: 0 auto; border-radius: 50%; z-index: 0 }
