@@ -88,7 +88,7 @@ if os.getenv('DB_NAME', ''):
             'USER':  os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST':  os.getenv('DB_HOST'),   # Or an IP Address that your DB is hosted on
-            'PORT': '1433',
+            'PORT':  os.getenv('DB_PORT'),
             'OPTIONS': {
                 # 'driver': 'ODBC Driver 18 for SQL Server',
                 'driver': 'ODBC Driver 17 for SQL Server',
