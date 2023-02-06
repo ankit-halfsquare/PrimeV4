@@ -1,0 +1,487 @@
+{% extends "frontend/base.html" %} {% load static %} {% block title %}Webix {% endblock %} {%block head %}
+<script src='{% static "js/webix.js" %}'></script>
+<script src='{% static "js/project.js" %}'></script>
+<script src='{% static "js/project-view.js" %}'></script>
+<script src='{% static "js/slider-view.js" %}'></script>
+<script src='{% static "js/project-view-editor.js" %}'></script>
+
+<style>
+  .highlight {
+    background-color: yellow;
+  }
+  .highlight2 {
+    background-color: green;
+  }
+
+  .highlight3 {
+    background-color: skyblue;
+  }
+
+  .my_menu .webix_view {
+    background-color: #eceff1;
+  }
+  .my_menu2 .webix_view {
+    background-color: #dfdcdc;
+  }
+
+  .my_menu3 .webix_view {
+    background-color: #dad9d9;
+  }
+
+  .my_menu .webix_list_item {
+    line-height: 35px;
+    border-bottom-color: #ddd;
+  }
+</style>
+
+{% endblock %} {% block content %}
+<script type="text/javascript" charset="utf-8">
+  var elements = [
+    {
+      view: "icon",
+      icon: "mdi mdi-menu-down",
+      click: function () {
+        $$("$sidebar1").toggle();
+      },
+    },
+    {
+      view: "label",
+      label: "Prime V4",
+      click: function () {
+        $$("$sidebar1").toggle();
+      },
+    },
+  ];
+
+  async function get_data_project_table(id) {
+    var url;
+    if (id === "project_select") {
+      url = `{% url 'v1/core-project' %}`;
+    }
+
+    const response = await webix.ajax().get(url);
+    const data = response.json();
+    console.log("data1", data);
+    return data;
+  }
+
+  async function  get_columns_project_task_view(view_id) {
+
+    console.log("======>=",view_id)
+    var url;
+    url = `{% url 'v1/core-view-field' '0000' %}`;
+    url = url.replace('0000',view_id)
+    url = url+'?visible=1'
+
+    console.log("url",url)
+  
+    const response = await webix.ajax().get(url);
+    const view_field = response.json();
+    console.log("===view_field===", view_field);
+
+    cols =[]
+    for(var i = 0 ; i < view_field.length ; i++  ){
+        console.log("")
+        obj={}
+        obj['id'] = view_field[i].column_system_name
+        obj['header'] = {}
+        obj['header']['text'] = view_field[i].alias
+        if(view_field[i].excel_filter){
+            obj['header']['excelFilter'] = "excelFilter"
+        }
+        obj['width'] = view_field[i].column_width
+        
+
+        if(view_field[i].column_system_name === "task_status"){ 
+          obj['cssFormat'] = mark_status_task_table
+          obj['template'] = function (obj){
+                              if (obj.task_status === 'done') {
+                                return "<span>Done</span>";
+                              }
+                              else if (obj.task_status === 'ready_to_do_backlog') {
+                                return "<span>Ready To Do (Backlog)</span>";
+                              } else if (obj.task_status === 'not_ready_to_do') {
+                                return "<span>Not Ready To Do</span>";
+                              }
+                              else {
+                                return obj.task_status;
+                              }
+                            }
+        }
+        cols[i] = obj
+    }
+    task_columns = cols
+
+    console.log("task_columns", task_columns);
+
+    return task_columns
+
+    
+  }
+
+  async function get_filter_sql(project_task_view_id) {
+    url = `{% url 'v1/core-view-retrive' '0000' %}`;
+    url = url.replace("0000", project_task_view_id);
+
+    console.log("url==>",url)
+
+    const response = await webix.ajax().get(url);
+    const project_task_view_data = response.json();
+    const project_task_view_filter_sql = project_task_view_data.filter_sql;
+    console.log("project_task_view_filter_sql", project_task_view_filter_sql);
+
+    return project_task_view_filter_sql;
+  }
+
+  async function get_data_task_table(project_id, project_task_view_id) {
+
+    
+    filter_sql = await get_filter_sql(project_task_view_id);
+   
+
+    if (filter_sql) {
+
+
+      url = `{% url 'v1/core-task' '0000' %}`;
+      url = url.replace("0000", project_id);
+      url = url + "?condition=" + filter_sql;
+
+      
+
+      const response = await webix.ajax().get(url);
+      const task_data = response.json();
+      console.log("task_data", task_data);
+      return task_data;
+    }
+    return [];
+  }
+
+  async function get_columns_task_table(id) {}
+
+  async function get_project_list(view_id) {
+    url = `{% url 'v1/core-project' %}`;
+
+    const response = await webix.ajax().get(url);
+    const project_data = response.json();
+    console.log("project_data", project_data);
+
+    arr_obj = [];
+    for (var i = 0; i < project_data.length; i++) {
+      arr_obj[i] = {
+        id: project_data[i].id,
+        value: project_data[i].name,
+      };
+    }
+
+    console.log("arr_obj", arr_obj);
+
+    return arr_obj;
+    //
+  }
+
+  async function get_project_task_view_list(project_id) {
+    url = `{% url 'v1/core-view' '0000' %}`;
+    url = url.replace("0000", project_id);
+
+    const response = await webix.ajax().get(url);
+    const project_view_list_data = response.json();
+    console.log("project_view_list_data==>", project_view_list_data);
+
+    arr_obj = [];
+    for (var i = 0; i < project_view_list_data.length; i++) {
+      arr_obj[i] = {
+        id: project_view_list_data[i].id,
+        value: project_view_list_data[i].name,
+      };
+    }
+
+    console.log("arr_obj", arr_obj);
+
+    return arr_obj;
+  }
+
+  webix.ready(function () {
+    webix.ui({
+      rows: [
+        {
+          view: "toolbar",
+          padding: 3,
+          elements: elements,
+        },
+        {
+          cols: [
+            {
+              view: "sidebar",
+              data: menu_data,
+              on: {
+                onAfterSelect: async function (id) {
+                  console.log("id", id);
+
+                  var columns, data;
+                  var datatable = $$("main_datatable");
+                  $$("filters").hide();
+
+                  if (id === "task") {
+                    $$("filters").show();
+                    project_list = await get_project_list();
+                    console.log("project_list", project_list);
+                    $$("project_filter").define("options", project_list);
+                    $$("project_filter").define("value", project_list[1]);
+                    $$("project_filter").refresh();
+
+                    project_id = $$("project_filter").getValue();
+                    console.log("project_id", project_id);
+
+                    project_task_view_list = await get_project_task_view_list(
+                      project_id
+                    );
+
+                    console.log(
+                      "project_task_view_list",
+                      project_task_view_list
+                    );
+
+                    $$("view_filter").define("options", project_task_view_list);
+                    $$("view_filter").define(
+                      "value",
+                      project_task_view_list[1]
+                    );
+                    $$("view_filter").refresh();
+
+                    project_task_view_id = $$("view_filter").getValue();
+                    console.log("project_view_id", project_task_view_id);
+                    /*
+
+                    $$("project_filter").refresh();
+
+                    var currentValue = $$("project_filter").getValue();*/
+
+                   
+                    console.log("function calling ")
+                    data = await get_data_task_table(project_id,project_task_view_id);
+
+                    console.log("project_view_id===111", project_task_view_id);
+                    columns = await get_columns_project_task_view(project_task_view_id)
+                    console.log("function called ")
+                    //data = task;
+                  } else if (id === "project_select") {
+                    data = await get_data_project_table(id);
+                    console.log("data2", data);
+                    columns = project_cols
+                    console.log("columns", columns);
+                  }
+
+                  datatable.clearAll();
+                  datatable.config.columns = [];
+                  datatable.refreshColumns();
+                  datatable.config.columns = columns;
+                  datatable.refreshColumns();
+                  datatable.parse(data, "json");
+                },
+              },
+
+              
+            },
+            {
+              rows: [
+                {
+                  id: "filters",
+                  //hidden:true
+                  cols: [
+                    {
+                      id: "project_filter",
+                      view: "richselect",
+                      width: 150,
+                      value: "All",
+                      value: projects[0],
+                      options: projects,
+                      on: {
+                        onChange: async function (newv, oldv) {
+                          if (newv !== oldv) {
+                            project_id = newv;
+                            console.log(
+                              "changed selected Project is ",
+                              project_id
+                            );
+
+                            project_view_list =
+                              await get_project_task_view_list(project_id);
+
+                            console.log("project_view_list", project_view_list);
+
+                            $$("view_filter").define("options",project_view_list);
+                            $$("view_filter").define("value",project_view_list[0]);
+                            $$("view_filter").refresh();
+
+                            data = await get_data_task_table(project_id,project_view_list[0].id);
+
+                            console.log("project_filter project_task_view_id==>", project_task_view_id);
+
+                            columns = await get_columns_project_task_view(project_view_list[0].id)
+
+                            console.log("project_filter data", data);
+
+                            var datatable = $$("main_datatable");
+                            datatable.clearAll();
+                            datatable.config.columns = [];
+                            datatable.refreshColumns();
+                            datatable.config.columns = columns;
+                            datatable.refreshColumns();
+                            datatable.parse(data, "json");
+                          }
+                        },
+                      },
+                    },
+                    {
+                      id: "view_filter",
+                      view: "richselect",
+                      width: 170,
+                      value: views_for_project[0],
+                      options: views_for_project,
+                      on: {
+                        onChange: async function (newv, oldv) {
+                          if (newv !== oldv) {
+                            console.log("view changed",newv)
+                            view_id = newv
+                            project_id = $$("project_filter").getValue();
+
+                            data = await get_data_task_table(project_id,view_id);
+                            columns = await get_columns_project_task_view(view_id)
+
+                            console.log("view_filter data",data);
+
+                            var datatable = $$("main_datatable");
+
+                            datatable.clearAll();
+                            datatable.config.columns = [];
+                            datatable.refreshColumns();
+                            datatable.config.columns = columns;
+                            datatable.refreshColumns();
+                            
+                            datatable.parse(data, "json");
+
+
+                          } 
+                        },
+                      },
+                    },
+                  ],
+                },
+                {
+                  id: "main_datatable",
+                  view: "datatable",
+                  columns: [],
+                  data: [],
+                  width: 1500,
+                  select: "row",
+                  onClick: {
+                    projectEditBtn: function (ev) {
+                      var id = ev.target.getAttribute("data-id");
+                      console.log(id);
+                      //$$("slider-view").show();
+                      var selectedData = $$("main_datatable").getItem(id);
+                      $$("inputForm").setValues(selectedData);
+                    },
+                  },
+                  on: {
+                    onItemClick: function (id) {
+                      console.log("id", id);
+                    },
+                  },
+                  onClick:{
+                    "project_act_upon": async function(ev)
+                    {
+                        var id = ev.target.id;
+                        console.log("The id of the clicked element is: ", id);
+                        var item = this.getItem(id);
+                        console.log("item", item);
+                        console.log(menudata2);
+                        for (var i = 0; i < menudata2.length; i++) {
+                          menudata2[i].data = item["id"];
+                        }
+                        console.log(menudata2);
+                        $$("inputForm").setValues(item);
+                        $$("inputForm").show();
+                        $$("slider-view").show();
+                        
+                    }
+                },
+                },
+                {
+                  view: "form",
+                  id: "inputForm1",
+                  hidden: true,
+                  elements: [
+                    {
+                      view: "text",
+                      label: "Name",
+                      name: "name",
+                      labelWidth: 100,
+                      width: 250,
+                      labelAlign: "left",
+                      labelPosition: "top",
+                    },
+                    {
+                      view: "text",
+                      label: "Email",
+                      name: "email",
+                      labelWidth: 100,
+                      width: 250,
+                      labelAlign: "left",
+                      labelPosition: "top",
+                    },
+                    {
+                      view: "text",
+                      label: "Phone",
+                      name: "phone",
+                      labelWidth: 100,
+                      width: 250,
+                      labelAlign: "left",
+                      labelPosition: "top",
+                    },
+                    {
+                      margin: 10,
+                      cols: [
+                        {
+                          view: "button",
+                          value: "Cancel",
+                          click: function () {
+                            $$("inputForm").clear();
+                            $$("main_datatable").show();
+                            $$("inputForm").hide();
+                          },
+                        },
+                        {
+                          view: "button",
+                          type: "form",
+                          value: "Save",
+                          click: function () {
+                            $$("inputForm").save();
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                  rules: {
+                    name: webix.rules.isNotEmpty,
+                    email: webix.rules.isEmail,
+                    phone: function (value) {
+                      return /\d{10}/.test(value);
+                    },
+                  },
+                  elementsConfig: {
+                    labelPosition: "left",
+                  },
+                },
+              ],
+            },
+            {},
+          ],
+        },
+      ],
+    });
+  });
+</script>
+
+{% include "frontend/slider.html" %} {% include "frontend/project-views.html" %}
+{% include "frontend/project-view-editor.html" %} {% endblock %}

@@ -1,0 +1,89 @@
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+<script>
+  function update_project_view_field(data) {
+    var url;
+    url = `{% url 'v1/core-view-field-update' '0000' %}`;
+    url = url.replace("0000", data.id);
+
+    console.log("url", url);
+    var csrfToken = Cookies.get("csrftoken");
+
+    webix
+      .ajax()
+      .headers({
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      })
+      .put(url, JSON.stringify(data))
+      .then(
+        function (response) {
+          console.log("Success! Status code:", response.json());
+        },
+        function (error) {
+          console.log("Error! Status code:", error.status);
+          console.log("Error! Status code:", error);
+        }
+      );
+  }
+
+  webix.ui({
+    view: "sidemenu",
+    id: "project-view-editor",
+    position: "right",
+    width: 950,
+
+    /*state: function (state) {
+      state.bottom = $$("menu").$height;
+    },*/
+    css: "",
+    body: {
+      borderless: true,
+      margin: 5,
+      rows: [
+        {
+          id: "main3",
+          template: "<button id='myButton'>Click out side the currunt window to close this then open new one</button>",
+          height: 50,
+        },
+        {
+          id: "project-view-editor-datatable",
+          view: "datatable",
+          columns: project_view_editor_columns,
+          data: project_view_editor_data,
+          width: 1500,
+          select: "row",
+          editable: true,
+          on: {
+            onAfterEditStop: function (state, editor, ignoreUpdate) {
+              if (!ignoreUpdate) {
+                console.log("editor", editor.row);
+                var row = this.getItem(editor.row);
+                console.log("row", row);
+              }
+
+              console.log("state.value", state.value);
+              console.log("state.old", state.old);
+
+              oldvalue = String(state.old);
+              newvalue = String(state.new);
+              if (oldvalue != newvalue) {
+                var row = this.getItem(editor.row);
+                console.log("row", row);
+                update_project_view_field(row);
+                // Perform an AJAX call to save the changes to the database
+                //webix.ajax().put("/update_data", { id: state.id, column: state.column, value: state.value });
+              }
+            },
+          },
+
+          onClick: {
+            editBtn3: function (ev) {
+              console.log("----");
+            },
+          },
+        },
+      ],
+      
+    },
+  });
+</script>

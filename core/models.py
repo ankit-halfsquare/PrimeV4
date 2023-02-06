@@ -321,6 +321,10 @@ class Project(models.Model):
     building = models.ForeignKey(Building,models.DO_NOTHING,blank=True, null=True)
 
 
+    def __str__(self):
+        return self.name
+
+
 
 
 
@@ -333,6 +337,9 @@ class ProjectSelectionList(models.Model):
     update_date = models.DateTimeField(blank=True, null=True)
     update_user = models.ForeignKey(User,models.DO_NOTHING,blank=True, null=True,related_name='project_selection_list_updated_by')
     obsolete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
   
 
@@ -531,6 +538,9 @@ class View(models.Model):
     enable_add_link = models.SmallIntegerField(blank=True, null=True)
     filter_conditions = models.TextField(blank=True, null=True)  # This field type is a guess.
     enable_clone_item = models.SmallIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
     
 

@@ -1,0 +1,205 @@
+<script>
+   {% comment %} webix.ui({
+     view: "sidemenu",
+     id: "slider-view",
+     width: 1700,
+     position: "right",
+     top: 100,
+     css: "my_menu",
+     body: {
+       borderless: false,
+       margin: 5,
+       cols: [
+         {
+           view: "sidebar",
+           data: menudata2,
+           on: {
+             onAfterSelect: function (id) {
+               console.log("id==>", id);
+               if (id === "views") {
+                 $$("menu2").show();
+               }
+             },
+           },
+         },
+         {
+           view: "form",
+           id: "inputForm",
+           elements: [
+             {
+               template: `
+                           <div class="container">
+                             <h2>Dummy Form</h2>
+
+                           </div>
+                         `,
+             },
+
+           ],
+         },
+       ],
+     },
+   }); {% endcomment %}
+
+
+  /* webix.ui({
+     view: "sidemenu",
+     id: "slider-view",
+     width: 1700,
+     position: "right",
+     top:100,
+     css: "my_menu",
+     body:{
+       borderless:false,
+       margin: 5,
+       cols:[
+         {
+           view: "sidebar",
+           data: menudata2,
+           on:
+           {
+               onAfterSelect: function(id)
+               {
+                   console.log("id==>", id)
+                   if (id === "views")
+                   {
+                       $$("menu2").show();
+                   }
+               }
+           }
+         },
+         {
+           view: "form",
+           id: "inputForm",
+           elements:[
+             { view:"text", label:"Name", name:"name"},
+             { view:"text", label:"Email", name:"email"},
+             { view:"text", label:"Phone", name:"phone"},
+             { cols:[
+               { view:"button", value:"Cancel", click:function(){
+                 $$("inputForm").clear();
+               }},
+               { view:"button", type:"form", value:"Save", click:function(){
+                 $$("inputForm").save();
+               }}
+             ]}
+           ]
+         }
+       ]
+     }
+   });*/
+
+
+
+   async function get_data_project_views(id) {
+        var url;
+        url = `{% url 'v1/core-view' '0000' %}`;
+        url = url.replace('0000',id)
+
+      console.log("url==>",url)
+      const response = await webix.ajax().get(url);
+      const data = response.json();
+      console.log("data1", data);
+      return data;
+  }
+
+   webix.ui({
+     view: "sidemenu",
+     id: "slider-view",
+     position: "right",
+     width:1500,
+     css: "my_menu",
+     on: {
+      onItemClick: function(id) {
+      if (id === "close-record") {
+      this.hide();
+      }
+      }
+      },
+     body: {
+       borderless: false,
+       margin: 5,
+       rows: [
+         {
+           cols: [
+             {
+               view: "sidebar",
+
+               data: menudata2,
+               on:
+               {
+                   onAfterSelect: async function(id)
+                   {
+                       console.log("onAfterSelect id==>", id)
+                   },
+                   onItemClick: async function (id) {
+                    console.log("id",id)
+                      if (id === "close-record")
+                       {
+                        $$("slider-view").hide();
+                       }else if(id === "views"){
+                        var item = this.getItem(id);
+                        console.log("item: ", item);
+                        ID = item['data']
+                        console.log("ID==",ID)
+                        data  = await get_data_project_views(ID)
+                        var datatable = $$("project-view-datatable");
+                        datatable.clearAll();
+                        datatable.parse(data, "json");
+                        $$("project-view-sidemenu").show();
+                       }
+                  },
+               }
+             },
+             {
+               view: "form",
+               id: "inputForm",
+               width:1800,
+               hidden: true,
+               elements:[
+                   { view:"text", label:"Name", name:"name", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Company", name:"company", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Building", name:"building", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"City", name:"city", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Country", name:"country", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"select", label:"Project Status", name:"status", value:"Open", options:[ "Open", "Closed", "Lost" ], labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Cost", name:"cost", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"textarea", label:"Comments", name:"comments", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"textarea", label:"Revenue", name:"revenue", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"textarea", label:"Customer Feedback", name:"customer_feedback", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Email Address", name:"emailAddress", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"datepicker", label:"Create Date", name:"createDate", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"datepicker", label:"Update Date", name:"updateDate", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { view:"text", label:"Update User", name:"updateUser", labelWidth: 100, width: 250, labelAlign: "left", labelPosition: "top" },
+                   { margin: 10, cols:[
+                   { view:"button", value:"Cancel", click:function(){
+                   $$("inputForm").clear();
+                   $$("main_datatable").show();
+                   $$("inputForm").hide();
+                   }},
+                   { view:"button", type:"form", value:"Save", click:function(){
+                   $$("inputForm").save();
+                   }}
+                   ]}
+                   ],
+               rules: {
+                 name: webix.rules.isNotEmpty,
+                 email: webix.rules.isEmail,
+                 phone: function (value) {
+                   return /\d{10}/.test(value);
+                 },
+               },
+               elementsConfig: {
+                 labelPosition: "left",
+               },
+             },
+           ],
+         },
+       ],
+     },
+   });
+
+
+
+
+</script>

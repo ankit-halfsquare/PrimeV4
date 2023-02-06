@@ -18,8 +18,10 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('auth.urls')),
-    path('', include('account.urls'))
+    path('', include('frontend.urls')),
+    # path('', include('account.urls')),
+    path('core/', include('core.api.v1.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

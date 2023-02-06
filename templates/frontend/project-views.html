@@ -1,0 +1,70 @@
+<script>
+
+
+async function get_project_view_fields(id){
+    var url;
+    url = `{% url 'v1/core-view-field' '0000' %}`;
+    url = url.replace('0000',id)
+
+    const response = await webix.ajax().get(url);
+    const data = response.json();
+    //console.log("data1", data);
+    return data;
+
+}
+
+webix.ui(
+    {
+        view: "sidemenu",
+        id: "project-view-sidemenu",
+        width: 1250,
+        position: "right",
+        
+        css: "my_menu2",
+        body:
+        {
+            borderless: true,
+            margin: 5,
+            rows: [
+            {
+                id: "main",
+                template: "will do something here",
+                height: 50
+            },
+            {
+                id: "project-view-datatable",
+                view: "datatable",
+                columns: project_view_columns,
+                data: projecct_view_data,
+                width: 1500,
+                select: "row",
+                editable: true,
+                on:
+                {
+                    
+                },
+               
+                onClick:
+                {
+                    "project_view_act_upon": async function(ev)
+                    {
+                        console.log("----",ev)
+
+                        var id = ev.target.id;
+                        console.log("The id of the clicked element is: ", id);
+                        data = await get_project_view_fields(id)
+                        var datatable = $$("project-view-editor-datatable");
+                        datatable.clearAll();
+                        datatable.parse(data, "json");
+
+                        $$("project-view-editor").show();
+                    }
+                },
+                
+            }, ]
+        }
+});
+
+
+
+</script>

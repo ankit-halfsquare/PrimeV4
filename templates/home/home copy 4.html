@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <script type="text/javascript" src="{% static 'codebase/webix.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'codebase/webix.css' %}" />
+  <link rel="stylesheet"  type="text/css"  href="{% static 'codebase/skins/mini.css' %}" />
+      <!-- Custom CSS -->
+  <link href={% static "css/style.css" %} rel="stylesheet">
+  <link href={% static "css/custom.css" %} rel="stylesheet">
+  <link href={% static "css/secondary.css" %} rel="stylesheet">
+  <script src={% static "js/custom.js" %}></script>      
+</head>
+
+
+
+ <body>
+    <script type="text/javascript" charset="utf-8">   
+            var menu_data = [
+                        {id: "buildings", icon: "mdi mdi-view-dashboard", value: "Buildings(item sets)",  data:[
+                            { id: "buildings1", value: "buildings 1"},
+                            { id: "buildings2", value: "buildings 2"}
+                        ]},
+                        {id: "project", icon: "mdi mdi-view-column", value:"Project(task set)", data:[
+                            { id: "project_id", value: "Project"},
+                            { id: "task", value: "Task"},
+                            { id: "view_role_position_user", value: "View-Role-Position-User"},
+                            { id: "view_role_user", value: "View-Role-User"},
+                            { id: "project_position", value: "Project Position"},
+                        ]},
+                        {id: "tables", icon: "mdi mdi-table", value:"Dummy", data:[
+                            { id: "tables1", value: "Dummy"},
+                            { id: "tables2", value: "Dummy"},
+                            { id: "tables3", value: "Dummy"}
+                        ]},
+                        {id: "uis", icon: "mdi mdi-puzzle", value:"Dummy", data:[
+                            { id: "dataview", value: "Dummy"},
+                            { id: "list", value: "Dummy"},
+                            { id: "menu", value: "Dummy"},
+                            { id: "tree", value: "Dummy"}
+                        ]},
+                        {id: "tools", icon: "mdi mdi-calendar", value:"Dummy", data:[
+                            { id: "kanban", value: "Dummy"},
+                            { id: "pivot", value: "Dummy"},
+                            { id: "scheduler", value: "Dummy"}
+                        ]},
+                        {id: "forms", icon: "mdi mdi-pencil", value:"Dummy",  data:[
+                            { id: "buttons", value: "Dummy"},
+                            { id: "selects", value: "Dummy"},
+                            { id: "inputs", value: "Dummy"}
+                        ]},
+                        {id: "demo", icon: "mdi mdi-book", value:"Dummy"}
+                    ];
+
+            var data = [
+                    { id:1, name:"User Profile", code:"UserProfile29", city:"Manchester", state:"Landon",country:"England",comment:"nice",project:"Project"},
+                    { id:2, name:"User Profile", code:"UserProfile30", city:"Surat", state:"Gujarat",country:"India",comment:"good",project:"Project"},
+                    { id:3, name:"User Profile", code:"UserProfile31", city:"dfd", state:"Landon",country:"USA",comment:"Very nice",project:"Project"},
+                    { id:4, name:"User Profile", code:"UserProfile32", city:"dfd", state:"Landon",country:"Africa",comment:"good",project:"Project"},
+                    { id:5, name:"User Profile", code:"UserProfile33", city:"yhjh", state:"Landon",country:"Ireland",comment:"nice",project:"Project"},
+                    { id:6, name:"User Profile", code:"UserProfile34", city:"ere", state:"Landon",country:"Dubai",comment:"Very good",project:"Project"},
+                    { id:7, name:"User Profile", code:"UserProfile35", city:"ere", state:"Landon",country:"England",comment:"nice",project:"Project"},
+                ]
+
+            var data2 =[
+            { id:1, name:"User Profile", code:"UserProfile29", city:"Manchester", state:"Landon",country:"England",comment:"nice",project:"Project"},
+            { id:2, name:"User Profile", code:"UserProfile30", city:"Surat", state:"Gujarat",country:"India",comment:"good",project:"Project"},
+            { id:3, name:"User Profile", code:"UserProfile31", city:"dfd", state:"Landon",country:"USA",comment:"Very nice",project:"Project"},
+            { id:4, name:"User Profile", code:"UserProfile32", city:"dfd", state:"Landon",country:"Africa",comment:"good",project:"Project"},
+            { id:5, name:"User Profile", code:"UserProfile33", city:"yhjh", state:"Landon",country:"Ireland",comment:"nice",project:"Project"},
+            { id:6, name:"User Profile", code:"UserProfile34", city:"ere", state:"Landon",country:"Dubai",comment:"Very good",project:"Project"},
+            { id:7, name:"User Profile", code:"UserProfile35", city:"ere", state:"Landon",country:"England",comment:"nice",project:"Project"},
+            ]
+            var  columns =  [
+            {
+              header: "Action",
+              template:
+                "<div class='link'> <a class='viewbtn' type='button'>act upon</a> </div>",
+              width: 80,
+            },              
+            {
+              id: "name",
+              header: {
+                text: "Name",
+                autoheight: true,
+                content: "excelFilter",
+                mode: "text",
+              },
+              sort: "string",
+              width: 113,
+            },
+            {
+              id: "code",
+              header: {
+                text: "Code",
+                autoheight: true,
+                content: "excelFilter",
+                css: "multiline",
+                mode: "text",
+              },
+              sort: "string",
+              width: 113,
+            },
+            
+            {
+              id: "city",
+              header: {
+                text: "City",
+                autoheight: true,
+                content: "excelFilter",
+                css: "multiline",
+                mode: "text",
+              },
+              sort: "string",
+              width: 100,
+            },
+            {
+              id: "state",
+              header: {
+                text: "State",
+                autoheight: true,
+                content: "excelFilter",
+                css: "multiline",
+                mode: "text",
+              },
+              sort: "string",
+              width: 100,
+            },
+            {
+             id: "country",
+             header: {
+               text: "Country",
+               autoheight: true,
+               content: "excelFilter",
+               css: "multiline",
+               mode: "text",
+             },
+             sort: "string",
+             width: 100,
+           },
+           
+           {
+             id: "comment",
+             header: {
+               text: "Comment",
+               autoheight: true,
+               content: "excelFilter",
+               css: "multiline",
+               mode: "text",
+             },
+             sort: "string",
+             width: 100,
+           },
+           {
+             id: "project",
+             header: {
+               text: "Project",
+               autoheight: true,
+               content: "excelFilter",
+               css: "multiline",
+               mode: "text",
+             },
+             sort: "string",
+             width: 100,
+           },
+          ]
+
+                webix.ready(function()
+                {
+                    webix.ui({
+                        rows: 
+                            [
+                                { view: "toolbar", padding:3, elements: 
+                                    [
+                                        { view: "icon", icon: "mdi mdi-menu", click: function(){
+                                            $$("$sidebar1").toggle();
+                                        }
+                                        },
+                                        { view: "label", label: "My App"},
+                                    ]
+                                },
+                                { 
+                                    cols:
+                                    [
+                                        {
+                                            view: "sidebar",
+                                            data: menu_data,
+                                            on:{
+                                            onAfterSelect: function(id){
+                                                webix.message("Selected: "+this.getItem(id).value)
+                                                var datatables = ["project_id", "task", "view_role_position_user"];
+                                                datatables.forEach(function(datatable) {
+                                                    if(id ==datatable ){
+                                                        webix.$$(id).show();
+                                                    }else{
+                                                        webix.$$(datatable).hide();
+                                                    }
+                                                });
+                                                webix.ajax().get("http://127.0.0.1:8000/", function(text) {
+
+                                                    //webix.$$("main").setHTML(text);
+                                                });
+                                                //webix.$$("main").setHTML(this.getItem(id).value);
+                                            }
+                                            }
+                                        },
+                                        /*{
+                                            id: "main",
+                                            template: "Welcome to the dashboard"
+                                        },*/
+                                        {
+                                          rows: [
+                                          {
+                                          cols: [
+                                          {
+                                          id: "gender_filter",
+                                          view: "richselect",
+                                          width:100,
+                                          value: "All",
+                                          options: ["All", "Male", "Female"],
+                                          on: {
+                                          onChange: function (newv, oldv) {
+                                          var value = (newv !== "All") ? newv : "";
+                                          $$("project_id").filter(function (obj) {
+                                          return obj.gender.toLowerCase().indexOf(value.toLowerCase()) === 0;
+                                          });
+                                          }
+                                          }
+                                          },
+                                          {
+                                          id: "age_filter",
+                                          view: "richselect",
+                                          width:100,
+                                          value: "All",
+                                          options: ["All", "35", "28", "42"],
+                                          on: {
+                                          onChange: function (newv, oldv) {
+                                          var value = (newv !== "All") ? parseInt(newv) : "";
+                                          $$("project_id").filter(function (obj) {
+                                          return obj.age === value;
+                                          });
+                                          }
+                                          }
+                                          }
+                                          ]
+                                          },
+                                          {
+                                          id: "project_id",
+                                          view: "datatable",
+                                          width: 1200,
+                                          columns: [
+                                          { id: "name", header: "Name", width: 150 },
+                                          { id: "age", header: "Age", width: 80 },
+                                          { id: "gender", header: "Gender", width: 100 }
+                                          ],
+                                          select: "row",
+                                          data: [
+                                          { id: 1, name: "John Doe", age: 35, gender: "Male" },
+                                          { id: 2, name: "Jane Smith", age: 28, gender: "Female" },
+                                          { id: 3, name: "Bob Johnson", age: 42, gender: "Male" }
+                                          ],
+                                          autoConfig: true
+                                          }
+                                          ]
+                                          }
+                                
+                                    ]
+                                }
+                            ]
+                    });
+            });  
+    </script>
+ </body>
+ 
+<script src={% static "assets/plugins/jquery/jquery.min.js" %}></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src={% static "plugins/popper/popper.min.js" %}></script>
+    <script src={% static "assets/plugins/bootstrap/js/bootstrap.min.js" %}></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src={% static "js/jquery.slimscroll.js" %}></script>
+    <!--Wave Effects -->
+    <script src={% static "js/waves.js" %}></script>
+    <!--Menu sidebar -->
+    <script src={% static "js/sidebarmenu.js" %}></script>
+    <!--stickey kit -->
+    {% comment %} <script src={% static "assets/plugins/sticky-kit-master/dist/sticky-kit.min.js" %}></script> {% endcomment %}
+<script src={% static "plugins/sparkline/jquery.sparkline.min.js" %}></script>
+</body>
+</html>
